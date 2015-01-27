@@ -1,0 +1,28 @@
+{
+  "name": "tsj4-bb-template-loader",
+  "version": "1.0.0",
+  "description": "Polymer utility component the enables support for external Underscore template files for Backbone Projects.",
+  "main": "tsj4-bb-template-loader.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tjohnson4/tsj4-bb-template-loader.git"
+  },
+  "keywords": [
+    "Polymer",
+    "Utility",
+    "Backbone",
+    "Template"
+  ],
+  "author": "Todd Johnson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tjohnson4/tsj4-bb-template-loader/issues"
+  },
+  "homepage": "https://github.com/tjohnson4/tsj4-bb-template-loader",
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  }
+}
