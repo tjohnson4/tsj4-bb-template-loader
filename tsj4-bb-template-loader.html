@@ -7,8 +7,8 @@
     Code distributed by Google as part of the polymer project is also
     subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
+<link rel="import" href="dependancies.html">
 <link rel="import" href="../polymer/polymer.html">
-
 <!--
 Element providing solution to no problem in particular.
 
@@ -21,73 +21,57 @@ Element providing solution to no problem in particular.
 @status alpha
 @homepage https://github.com/tjohnson4/tsj4-bb-template-loader
 -->
-<polymer-element name="tsj4-bb-template-loader" attributes="notitle author">
-
-  <template>
-
-    <link rel="stylesheet" href="tsj4-bb-template-loader.css">
-
-    <h1>Hello from tsj4-bb-template-loader</h1>
-    <content></content>
-
-  </template>
-
+<polymer-element name="tsj4-bb-template-loader" hidden attributes="notitle author">
   <script>
 
-    Polymer({
+    Polymer("tsj4-bb-template-loader", {
       /**
-       * The `author` attribute sets an initial author
+       * The `BASE` is a global base url to use when fetching a template file
        *
-       * @attribute author
+       * @attribute BASE
        * @type string
-       * @default 'Todd Johnson'
        */
-      author: 'Todd Johnson',
+      BASE: undefined,
 
       /**
-       * `fancy` is a property that does something fancy.
+       * `PATH` is the relative location of the template files.
        *
-       * @property fancy
-       * @type bool
-       * @default false
+       * @property PATH
+       * @type string
        */
-      fancy: false,
+      PATH: undefined,
 
-      ready: function() {
-        // Ready is a lifecycle callback.
-        // You can do setup work in here.
-        // More info: http://www.polymer-project.org/docs/polymer/polymer.html#lifecyclemethods
-      },
+    /**
+     * The `render` method will fetch an external template and render the template using
+     * underscore. If a data object is provided it will be applied.
+     *
+     * @method render
+     * @param {String} templateName The name of the template file.
+     * @param {Object} templateData The data to use when rendering the template.
+     * @return {String} The rendered template.
+     */
+      render : function(templateName, templateData) {
+          if ( !$.cache ) {
+              $.cache = {};
+          }
 
-      /**
-       * The `sayHello` method will return a greeting.
-       *
-       * @method sayHello
-       * @param {String} greeting Pass in a specific greeting.
-       * @return {String} Returns a string greeting.
-       */
-      sayHello: function(greeting) {
-        var response = greeting || 'Hello World!';
-        return 'tsj4-bb-template-loader says, ' + response;
-      },
+          if ( ! $.cache[templateName] ) {
+              var url = (this.BASE != undefined) ? this.BASE + this.PATH + '/' + templateName + '.html' : this.PATH + '/' + templateName + '.html';
 
-      /**
-       * The `tsj4-bb-template-loader-lasers-success` event is fired whenever we
-       * call fireLasers.
-       *
-       * @event tsj4-bb-template-loader-lasers-success
-       * @param {Object} detail
-       *   @param {string} detail.sound An amazing sound.
-       */
+              var template;
+              $.ajax({
+                  url: url,
+                  method: 'GET',
+                  async: false,
+                  success: function(data) {
+                      template = data;
+                  }
+              });
 
-      /**
-       * The `fireLasers` method will fire the lasers. At least
-       * it will dispatch an event that claims lasers were fired :)
-       *
-       * @method fireLasers
-       */
-      fireLasers: function() {
-        this.fire('tsj4-bb-template-loader-lasers-success', { sound: 'Pew pew pew!' });
+              $.cache[templateName] = _.template(template);
+          }
+
+          return $.cache[templateName](templateData);
       }
 
     });

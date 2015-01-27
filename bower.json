@@ -6,10 +6,10 @@
   ],
   "description": "Polymer utility component the enables support for external Underscore template files for Backbone Projects.",
   "keywords": [
-      "Polymer",
-      "Utility",
-      "Backbone",
-      "Template"
+    "Polymer",
+    "Utility",
+    "Backbone",
+    "Template"
   ],
   "main": "tsj4-bb-template-loader.html",
   "license": "MIT",
@@ -19,7 +19,9 @@
     "/tests/"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^0.5.2"
+    "polymer": "Polymer/polymer#^0.5.2",
+    "underscore": "~1.7.0",
+    "jquery": "~2.1.3"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^2.0.5"

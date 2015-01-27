@@ -22,35 +22,41 @@
 </head>
 <body>
 
-  <!-- You use the document as a place to set up your fixtures. -->
-  <tsj4-bb-template-loader></tsj4-bb-template-loader>
+    <!-- You use the document as a place to set up your fixtures. -->
+    <tsj4-bb-template-loader></tsj4-bb-template-loader>
 
-  <script>
-    var myEl = document.querySelector('tsj4-bb-template-loader');
+    <script>
+        var TemplateLoader = document.querySelector('tsj4-bb-template-loader');
+        TemplateLoader.PATH = "/foo";
+        TemplateLoader.BASE = "//foo.com"
 
-    suite('<tsj4-bb-template-loader>', function() {
+        suite('<tsj4-bb-template-loader>', function() {
 
-      test('defines the "author" property', function() {
-        assert.equal(myEl.author, 'Todd Johnson');
-      });
+            test('defines the "PATH" property', function() {
+            assert.equal(TemplateLoader.PATH, "/foo");
+        });
 
-      test('says hello', function() {
-        assert.equal(myEl.sayHello(), 'tsj4-bb-template-loader says, Hello World!');
+        test('defines the "PATH" property', function() {
+            assert.equal(TemplateLoader.PATH, "/foo");
+        });
 
-        var greetings = myEl.sayHello('greetings Earthlings');
-        assert.equal(greetings, 'tsj4-bb-template-loader says, greetings Earthlings');
-      });
+        test('says hello', function() {
+            assert.equal(myEl.sayHello(), 'tsj4-bb-template-loader says, Hello World!');
 
-      test('fires lasers', function(done) {
+            var greetings = myEl.sayHello('greetings Earthlings');
+            assert.equal(greetings, 'tsj4-bb-template-loader says, greetings Earthlings');
+        });
+
+        test('fires lasers', function(done) {
         myEl.addEventListener('tsj4-bb-template-loader-lasers-success', function(event) {
-          assert.equal(event.detail.sound, 'Pew pew pew!');
-          done();
+        assert.equal(event.detail.sound, 'Pew pew pew!');
+        done();
         });
         myEl.fireLasers();
-      });
+        });
 
-    });
-  </script>
+        });
+    </script>
 
 </body>
 </html>
