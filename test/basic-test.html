@@ -27,34 +27,25 @@
 
     <script>
         var TemplateLoader = document.querySelector('tsj4-bb-template-loader');
-        TemplateLoader.PATH = "/foo";
-        TemplateLoader.BASE = "//foo.com"
+        TemplateLoader.PATH = "templates";
 
         suite('<tsj4-bb-template-loader>', function() {
 
             test('defines the "PATH" property', function() {
-            assert.equal(TemplateLoader.PATH, "/foo");
-        });
+                assert.equal(TemplateLoader.PATH, "templates");
+            });
 
-        test('defines the "PATH" property', function() {
-            assert.equal(TemplateLoader.PATH, "/foo");
-        });
+            test('defines the "BASE" property', function() {
+                assert.equal(TemplateLoader.BASE, undefined);
+            });
 
-        test('says hello', function() {
-            assert.equal(myEl.sayHello(), 'tsj4-bb-template-loader says, Hello World!');
+            test('fetches and renders a template', function() {
+                assert.equal(TemplateLoader.render("example"), "<p></p>");
+            });
 
-            var greetings = myEl.sayHello('greetings Earthlings');
-            assert.equal(greetings, 'tsj4-bb-template-loader says, greetings Earthlings');
-        });
-
-        test('fires lasers', function(done) {
-        myEl.addEventListener('tsj4-bb-template-loader-lasers-success', function(event) {
-        assert.equal(event.detail.sound, 'Pew pew pew!');
-        done();
-        });
-        myEl.fireLasers();
-        });
-
+            test('fetches and renders a template', function() {
+                assert.equal(TemplateLoader.render("data", {msg:"foobar"}), "<p>foobar</p>");
+            });
         });
     </script>
 
