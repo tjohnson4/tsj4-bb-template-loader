@@ -1,0 +1,102 @@
+<!--
+    @license
+    Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+    This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+    The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+    The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+    Code distributed by Google as part of the polymer project is also
+    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="dependancies.html">
+<link rel="import" href="../polymer/polymer.html">
+<!--
+Polymer utility component the enables support for fetching external template files and rendering them with Underscore.
+
+##### Example
+
+    <head>
+        ...
+        <script src="../jquery/dist/jquery.min.js"></script>
+        <link rel="import" href="tsj4-bb-template-loader.html">
+
+        <script>
+            window.onload = function () {
+                var loader = document.querySelector("tsj4-bb-template-loader");
+                loader.PATH = "demo/templates";
+
+                var template = loader.render("example", {
+                    msg : "Hey from tsj4-bb-template-loader Demo"
+                });
+
+                $("body").append(template);
+            }
+        </script>
+    </head>
+    <body unresolved>
+        <tsj4-bb-template-loader></tsj4-bb-template-loader>
+    </body>
+
+@element tsj4-bb-template-loader
+@blurb Polymer utility component the enables support for external Underscore template files for Backbone Projects.
+@status alpha
+@homepage https://github.com/tjohnson4/tsj4-bb-template-loader
+-->
+<polymer-element name="tsj4-bb-template-loader" hidden attributes="notitle author">
+  <script>
+
+    Polymer("tsj4-bb-template-loader", {
+      /**
+       * The `BASE` is a global base url to use when fetching a template file
+       *
+       * @attribute BASE
+       * @type string
+       */
+      BASE: undefined,
+
+      /**
+       * `PATH` is the relative location of the template files.
+       *
+       * @property PATH
+       * @type string
+       */
+      PATH: undefined,
+
+    /**
+     * The `render` method will fetch an external template and render the template using
+     * underscore. If a data object is provided it will be applied.
+     *
+     * @method render
+     * @param {String} templateName The name of the template file.
+     * @param {Object} templateData The data to use when rendering the template.
+     * @return {String} The rendered template.
+     */
+      render : function(templateName, templateData) {
+          console.log("tsj4-bb-template-loader.render");
+          if ( !$.cache ) {
+              $.cache = {};
+          }
+
+          if ( ! $.cache[templateName] ) {
+              var url = (this.BASE != undefined) ? this.BASE + this.PATH + '/' + templateName + '.html' : this.PATH + '/' + templateName + '.html';
+
+              var template;
+              $.ajax({
+                  url: url,
+                  method: 'GET',
+                  async: false,
+                  success: function(data) {
+                      template = data;
+                  }
+              });
+
+              $.cache[templateName] = _.template(template);
+          }
+
+          return $.cache[templateName](templateData);
+      }
+
+    });
+
+  </script>
+
+</polymer-element>

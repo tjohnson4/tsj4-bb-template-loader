@@ -1,0 +1,7 @@
+{
+  "name": "tsj4-bb-template-loader#gh-pages",
+  "private": true,
+  "dependencies": {
+    "tsj4-bb-template-loader": "tjohnson4/tsj4-bb-template-loader#master"
+  }
+}
