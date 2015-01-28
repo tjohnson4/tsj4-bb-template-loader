@@ -13,14 +13,14 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
     <title>tsj4-bb-template-loader Demo</title>
 
-    <script src="../../webcomponentsjs/webcomponents.min.js"></script>
-    <script src="../../jquery/dist/jquery.min.js"></script>
-    <link rel="import" href="../tsj4-bb-template-loader.html">
+    <script src="../webcomponentsjs/webcomponents.min.js"></script>
+    <script src="../jquery/dist/jquery.min.js"></script>
+    <link rel="import" href="tsj4-bb-template-loader.html">
 
     <script>
         window.onload = function () {
             var loader = document.querySelector("tsj4-bb-template-loader");
-            loader.PATH = "templates";
+            loader.PATH = "demo/templates";
 
             var template = loader.render("example", {
                 msg : "Hey from tsj4-bb-template-loader Demo"
